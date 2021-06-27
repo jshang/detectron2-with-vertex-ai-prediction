@@ -1,18 +1,13 @@
-import time
 import io
-from base64 import b64decode
-from base64 import b64encode
+import time
+from base64 import b64decode, b64encode
 
 import flask
 import numpy as np
-from flask import Flask
-from flask import request
-from PIL import Image
+from demo import VisualizationDemo, get_parser, setup_cfg
 from detectron2.utils.logger import setup_logger
-
-from demo import setup_cfg
-from demo import get_parser
-from demo import VisualizationDemo
+from flask import Flask, request
+from PIL import Image
 
 logger = setup_logger()
 logger.info("Start initializations...")
@@ -41,6 +36,7 @@ def nparray_to_b64(np_img: np.array) -> str:
     byte_b64img = b64encode(buf.getvalue())
     b64img = byte_b64img.decode("utf-8")
     return b64img
+
 
 @app.route('/predict', methods=["POST"])
 def peredict():
