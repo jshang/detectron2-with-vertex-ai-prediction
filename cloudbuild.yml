@@ -1,0 +1,12 @@
+
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: [
+          'build', '-f', 'Dockerfile',
+          '-t', 'gcr.io/$PROJECT_ID/detectron2-with-vertex-ai-prediction:latest',
+          '--cache-from', 'gcr.io/$PROJECT_ID/detectron2-with-vertex-ai-prediction:latest',
+          '.'
+        ]
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/$PROJECT_ID/detectron2-with-vertex-ai-prediction:latest' ]
+images: ['gcr.io/$PROJECT_ID/detectron2-with-vertex-ai-prediction' ]
