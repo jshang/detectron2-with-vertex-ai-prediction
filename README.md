@@ -47,7 +47,7 @@ $ gcloud beta ai endpoints deploy-model  ${VERTEX_AI_ENDPOINT_ID} \
   --region=us-west1 \
   --model=${VERTEX_AI_MODEL_ID} \
   --display-name=detectron2-demo-app \
-  --machine-type=n1-standard-2 \
+  --machine-type=n1-standard-4 \
   --accelerator=count=1,type=nvidia-tesla-t4 \
   --min-replica-count=1 \
   --max-replica-count=1 \
@@ -59,7 +59,7 @@ $ gcloud beta ai endpoints deploy-model  ${VERTEX_AI_ENDPOINT_ID} \
 ```console
 $ export GCP_PROJECT_NUMBER="$(gcloud projects list | grep ${GCP_PROJECT_ID} | awk '{print $3}')"
 $ wget http://images.cocodataset.org/val2017/000000439715.jpg -q -O input.jpg
-$ echo '{"data": {"b64":"'$(base64 input.jpg)'"}}' | tee req.json
+$ echo '{"instances": [{"data": {"b64":"'$(base64 input.jpg)'"}}]}' | tee req.json
 $ curl -X POST \
   -H "Authorization: Bearer $(gcloud auth print-access-token)" \
   -H "Content-Type: application/json" \
