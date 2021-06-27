@@ -61,10 +61,10 @@ $ export GCP_PROJECT_NUMBER="$(gcloud projects list | grep ${GCP_PROJECT_ID} | a
 $ wget http://images.cocodataset.org/val2017/000000439715.jpg -q -O input.jpg
 $ echo '{"data": {"b64":"'$(base64 input.jpg)'"}}' | tee req.json
 $ curl -X POST \
--H "Authorization: Bearer $(gcloud auth print-access-token)" \
--H "Content-Type: application/json" \
-https://us-west1-aiplatform.googleapis.com/v1/projects/${GCP_PROJECT_NUMBER}/locations/us-west1/endpoints/${VERTEX_AI_ENDPOINT_ID}:predict \
--d @req.json
+  -H "Authorization: Bearer $(gcloud auth print-access-token)" \
+  -H "Content-Type: application/json" \
+  https://us-west1-aiplatform.googleapis.com/v1/projects/${GCP_PROJECT_NUMBER}/locations/us-west1/endpoints/${VERTEX_AI_ENDPOINT_ID}:predict \
+  -d @req.json
 ```
 
 
