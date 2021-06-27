@@ -16,12 +16,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends locales \
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
 
-RUN python3 -m pip install detectron2 -f \
-    https://dl.fbaipublicfiles.com/detectron2/wheels/cu111/torch1.8/index.html
+RUN git clone --branch v0.4.1 https://github.com/facebookresearch/detectron2 detectron2_repo && \
+	pip install -e detectron2_repo
 
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 COPY ./ ./
 
-CMD ["python3", "demoapp/app.py", "--config-file", "detectron2/configs/quick_schedules/mask_rcnn_R_50_FPN_inference_acc_test.yaml"]
+CMD ["python3", "demoapp/app.py", "--config-file", "detectron2_repo/configs/quick_schedules/mask_rcnn_R_50_FPN_inference_acc_test.yaml"]
