@@ -3,19 +3,6 @@ USER root
 ENV APP /app
 WORKDIR $APP
 
-RUN apt-get update && apt-get install -y --no-install-recommends locales \
-	binutils \
-	apt-utils \
-	libproj-dev \
-	libgdal-dev \
-	libgl1-mesa-glx \
-	git \
-	&& pip install --no-cache-dir \
-    autopep8 \
-    flake8 \
-	&& apt-get clean \
-	&& rm -rf /var/lib/apt/lists/*
-
 RUN git clone --branch v0.4.1 https://github.com/facebookresearch/detectron2 detectron2_repo && \
 	pip install -e detectron2_repo
 
